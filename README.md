@@ -92,6 +92,10 @@ Ecommerce-API/
 
 ### **Installation**
 
+# Ecommerce API (Professional Version)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-green)
+This project is a robust ASP.NET Core Web API featuring **JWT Authentication** and **SQL Server** integration.
+
 1️⃣ **Clone the repository**
 ```bash
 git clone https://github.com/Adiie0001/Ecommerce-API.git
