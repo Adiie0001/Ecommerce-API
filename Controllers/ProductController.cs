@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EcommerceAPI.Models;
 using EcommerceAPI.Data;
@@ -16,20 +17,24 @@ namespace EcommerceAPI.Controllers
             _context = context;
         }
 
+        /// <summary>Get all products (public)</summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
         }
 
+        /// <summary>Get product by ID (public)</summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            if (product == null) return NotFound();
+            if (product == null) return NotFound(new { message = "Product not found" });
             return product;
         }
 
+        /// <summary>Create a new product (requires JWT auth)</summary>
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
@@ -38,20 +43,24 @@ namespace EcommerceAPI.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
 
+        /// <summary>Update an existing product (requires JWT auth)</summary>
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, Product product)
         {
-            if (id != product.Id) return BadRequest();
+            if (id != product.Id) return BadRequest(new { message = "ID mismatch" });
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
         }
 
+        /// <summary>Delete a product (requires JWT auth)</summary>
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            if (product == null) return NotFound();
+            if (product == null) return NotFound(new { message = "Product not found" });
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return NoContent();
