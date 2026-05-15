@@ -58,9 +58,9 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Database
+// Database - SQLite (works on any machine, no SQL Server needed)
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register JwtService
 builder.Services.AddScoped<JwtService>(provider =>
