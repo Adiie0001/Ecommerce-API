@@ -17,11 +17,14 @@ namespace EcommerceAPI.Controllers
             _context = context;
         }
 
-        /// <summary>Get all products (public)</summary>
+        /// <summary>Get all products (public) with pagination</summary>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         /// <summary>Get product by ID (public)</summary>

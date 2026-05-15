@@ -22,4 +22,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="EcommerceAPI.Tests\**" />
+    <Content Remove="EcommerceAPI.Tests\**" />
+    <None Remove="EcommerceAPI.Tests\**" />
+  </ItemGroup>
 </Project>
+

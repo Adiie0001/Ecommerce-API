@@ -114,4 +114,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
+// Initialize Database Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    EcommerceAPI.Data.SeedData.Initialize(services);
+}
+
 app.Run();
