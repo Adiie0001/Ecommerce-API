@@ -32,7 +32,7 @@ A production-quality **RESTful Web API** built with **ASP.NET Core 8**, featurin
 | Framework | ASP.NET Core 8 Web API |
 | Auth | JWT Bearer + BCrypt.Net |
 | ORM | Entity Framework Core 8 |
-| Database | SQL Server / LocalDB |
+| Database | SQLite |
 | Docs | Swagger / OpenAPI 3 |
 | CI/CD | GitHub Actions |
 
@@ -42,7 +42,7 @@ A production-quality **RESTful Web API** built with **ASP.NET Core 8**, featurin
 
 ### Prerequisites
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)
-- SQL Server or LocalDB (comes with Visual Studio)
+- No DB installation required (SQLite auto-creates)
 
 ### Run Locally
 
