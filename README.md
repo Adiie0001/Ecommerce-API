@@ -107,18 +107,20 @@ Open browser: **http://localhost:5xxx/swagger**
 ```
 Ecommerce-API/
 ├── Controllers/
-│   ├── AuthController.cs       # Register, Login, Protected
-│   └── ProductController.cs    # CRUD with [Authorize]
+│   ├── AuthController.cs       # Register, Login, Protected route
+│   └── ProductController.cs    # Full CRUD with [Authorize]
 ├── Data/
-│   └── AppDbContext.cs         # EF Core DbContext
+│   ├── AppDbContext.cs         # EF Core DbContext
+│   └── SeedData.cs             # Demo data: 2 users + 12 products
 ├── Models/
 │   ├── Product.cs              # Product entity
-│   └── User.cs                 # User entity
+│   └── User.cs                 # User entity with Role
 ├── Services/
 │   ├── JwtService.cs           # JWT token generation
 │   └── PasswordHasher.cs       # BCrypt wrapper
-├── SeedData.cs                 # Demo data seeder
-├── Program.cs                  # App configuration
+├── EcommerceAPI.Tests/
+│   └── ProductControllerTests.cs  # xUnit: 5 tests (all passing)
+├── Program.cs                  # App config: JWT + Swagger + SeedData
 └── appsettings.json            # Connection strings & JWT config
 ```
 
