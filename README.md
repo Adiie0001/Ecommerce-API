@@ -1,5 +1,3 @@
-﻿> **Note:** This is a **Portfolio Project** built to demonstrate .NET API development skills, clean architecture, and testing. It is currently parked and not under active feature development.
-
 # 🛒 Modern E-Commerce API
 
 [![.NET Build & Test](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml)
