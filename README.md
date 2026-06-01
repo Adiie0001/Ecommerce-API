@@ -18,6 +18,7 @@ A production-quality **RESTful Web API** built with **ASP.NET Core 8**, featurin
 - [x] **BCrypt Password Hashing** — Secure credential storage
 - [x] **Role-Based Access** — Protected product mutations (`[Authorize]`)
 - [x] **Full CRUD API** — Products with proper HTTP status codes
+- [x] **AI Product Recommendations** — Heuristic scoring based on simulated user behavior
 - [x] **Swagger UI** — Interactive API docs with JWT auth button
 - [x] **EF Core + SQL Server** — Code-first database with seed data
 - [x] **Auto Seed Data** — 2 demo users + 12 products on first run
@@ -87,6 +88,7 @@ Open browser: **http://localhost:5xxx/swagger**
 | POST | `/api/product` | [x] Required | Create product |
 | PUT | `/api/product/{id}` | [x] Required | Update product |
 | DELETE | `/api/product/{id}` | [x] Required | Delete product |
+| GET | `/api/product/recommend` | [ ] Public | AI Product Recommendations |
 
 ---
 
@@ -102,7 +104,7 @@ Open browser: **http://localhost:5xxx/swagger**
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 Ecommerce-API/
@@ -117,7 +119,8 @@ Ecommerce-API/
 │ └── User.cs # User entity with Role
 ├── Services/
 │ ├── JwtService.cs # JWT token generation
-│ └── PasswordHasher.cs # BCrypt wrapper
+│ ├── PasswordHasher.cs # BCrypt wrapper
+│ └── SimulatedAiRecommendationService.cs # AI heuristic scoring
 ├── EcommerceAPI.Tests/
 │ └── ProductControllerTests.cs # xUnit: 5 tests (all passing)
 ├── Program.cs # App config: JWT + Swagger + SeedData
