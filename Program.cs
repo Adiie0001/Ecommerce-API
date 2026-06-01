@@ -62,9 +62,10 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register JwtService
+// Register Services
 builder.Services.AddScoped<JwtService>(provider =>
     new JwtService(builder.Configuration["Jwt:Key"]!));
+builder.Services.AddScoped<IAiRecommendationService, SimulatedAiRecommendationService>();
 
 // Configure JWT Authentication
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]!);

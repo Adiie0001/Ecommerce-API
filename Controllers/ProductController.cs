@@ -11,10 +11,12 @@ namespace EcommerceAPI.Controllers
     public class ProductController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly EcommerceAPI.Services.IAiRecommendationService _aiService;
 
-        public ProductController(AppDbContext context)
+        public ProductController(AppDbContext context, EcommerceAPI.Services.IAiRecommendationService aiService)
         {
             _context = context;
+            _aiService = aiService;
         }
 
         /// <summary>Get all products (public) with pagination</summary>
@@ -25,6 +27,21 @@ namespace EcommerceAPI.Controllers
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+        }
+
+        /// <summary>Discover products using AI Natural Language Query (public)</summary>
+        [HttpGet("recommend")]
+        public async Task<ActionResult<IEnumerable<EcommerceAPI.Services.AiRecommendationResult>>> GetAiRecommendations([FromQuery] string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return BadRequest(new { message = "Search query is required." });
+            }
+
+            var allProducts = await _context.Products.ToListAsync();
+            var recommendations = await _aiService.GetRecommendationsAsync(query, allProducts);
+
+            return Ok(recommendations);
         }
 
         /// <summary>Get product by ID (public)</summary>
