@@ -1,4 +1,4 @@
-﻿# Modern E-Commerce API
+# Modern E-Commerce API
 
 [![.NET Build & Test](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-512BD4?style=flat-square&logo=.net&logoColor=white)
@@ -38,7 +38,7 @@ A production-quality **RESTful Web API** built with **ASP.NET Core 8**, featurin
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ### Prerequisites
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)
@@ -59,7 +59,7 @@ Open browser: **http://localhost:5xxx/swagger**
 
 ---
 
-## 🔑 Demo Credentials
+## Demo Credentials
 
 | Username | Email | Password | Role |
 |----------|-------|----------|------|
@@ -96,7 +96,7 @@ Open browser: **http://localhost:5xxx/swagger**
 1. POST /api/auth/register → { username, email, passwordHash }
 2. POST /api/auth/login → Returns: { token: "eyJ..." }
 3. Copy token
-4. In Swagger: Click 🔒 Authorize → Enter: Bearer eyJ...
+4. In Swagger: Click Authorize → Enter: Bearer eyJ...
 5. Now POST/PUT/DELETE product endpoints work!
 ```
 
