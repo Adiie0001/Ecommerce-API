@@ -67,6 +67,11 @@ builder.Services.AddScoped<JwtService>(provider =>
     new JwtService(builder.Configuration["Jwt:Key"]!));
 builder.Services.AddScoped<IAiRecommendationService, SimulatedAiRecommendationService>();
 
+// Register AutoMapper
+builder.Services.AddAutoMapper(cfg => {
+    cfg.AddProfile<EcommerceAPI.Mappings.MappingProfile>();
+});
+
 // Configure JWT Authentication
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]!);
 builder.Services.AddAuthentication(options =>
@@ -92,7 +97,8 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-
+// Configure Global Exception Middleware
+app.UseMiddleware<EcommerceAPI.Middleware.ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
