@@ -1,4 +1,4 @@
-# Modern E-Commerce API
+﻿# Modern E-Commerce API
 
 [![.NET Build & Test](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-512BD4?style=flat-square&logo=.net&logoColor=white)
@@ -14,15 +14,15 @@ A production-quality **RESTful Web API** built with **ASP.NET Core 8**, featurin
 
 ## Features
 
-- [x] **JWT Authentication** — Register → Login → Bearer token
-- [x] **BCrypt Password Hashing** — Secure credential storage
-- [x] **Role-Based Access** — Protected product mutations (`[Authorize]`)
-- [x] **Full CRUD API** — Products with proper HTTP status codes
-- [x] **AI Product Recommendations** — Heuristic scoring based on simulated user behavior
-- [x] **Swagger UI** — Interactive API docs with JWT auth button
-- [x] **EF Core + SQL Server** — Code-first database with seed data
-- [x] **Auto Seed Data** — 2 demo users + 12 products on first run
-- [x] **CI/CD** — GitHub Actions build & test pipeline
+- [x] **JWT Authentication** â€” Register â†’ Login â†’ Bearer token
+- [x] **BCrypt Password Hashing** â€” Secure credential storage
+- [x] **Role-Based Access** â€” Protected product mutations (`[Authorize]`)
+- [x] **Full CRUD API** â€” Products with proper HTTP status codes
+- [x] **AI Product Recommendations** â€” Heuristic scoring based on simulated user behavior
+- [x] **Swagger UI** â€” Interactive API docs with JWT auth button
+- [x] **EF Core + SQL Server** â€” Code-first database with seed data
+- [x] **Auto Seed Data** â€” 2 demo users + 12 products on first run
+- [x] **CI/CD** â€” GitHub Actions build & test pipeline
 
 ---
 
@@ -56,7 +56,7 @@ dotnet run
 
 Open browser: **http://localhost:5xxx/swagger**
 
-> Database is auto-created and seeded on first run — no migrations needed!
+> Database is auto-created and seeded on first run â€” no migrations needed!
 
 ---
 
@@ -95,10 +95,10 @@ Open browser: **http://localhost:5xxx/swagger**
 ## Auth Flow
 
 ```
-1. POST /api/auth/register → { username, email, passwordHash }
-2. POST /api/auth/login → Returns: { token: "eyJ..." }
+1. POST /api/auth/register â†’ { username, email, passwordHash }
+2. POST /api/auth/login â†’ Returns: { token: "eyJ..." }
 3. Copy token
-4. In Swagger: Click Authorize → Enter: Bearer eyJ...
+4. In Swagger: Click Authorize â†’ Enter: Bearer eyJ...
 5. Now POST/PUT/DELETE product endpoints work!
 ```
 
@@ -108,23 +108,23 @@ Open browser: **http://localhost:5xxx/swagger**
 
 ```
 Ecommerce-API/
-├── Controllers/
-│ ├── AuthController.cs # Register, Login, Protected route
-│ └── ProductController.cs # Full CRUD with [Authorize]
-├── Data/
-│ ├── AppDbContext.cs # EF Core DbContext
-│ └── SeedData.cs # Demo data: 2 users + 12 products
-├── Models/
-│ ├── Product.cs # Product entity
-│ └── User.cs # User entity with Role
-├── Services/
-│ ├── JwtService.cs # JWT token generation
-│ ├── PasswordHasher.cs # BCrypt wrapper
-│ └── SimulatedAiRecommendationService.cs # AI heuristic scoring
-├── EcommerceAPI.Tests/
-│ └── ProductControllerTests.cs # xUnit: 5 tests (all passing)
-├── Program.cs # App config: JWT + Swagger + SeedData
-└── appsettings.json # Connection strings & JWT config
+â”œâ”€â”€ Controllers/
+â”‚ â”œâ”€â”€ AuthController.cs # Register, Login, Protected route
+â”‚ â””â”€â”€ ProductController.cs # Full CRUD with [Authorize]
+â”œâ”€â”€ Data/
+â”‚ â”œâ”€â”€ AppDbContext.cs # EF Core DbContext
+â”‚ â””â”€â”€ SeedData.cs # Demo data: 2 users + 12 products
+â”œâ”€â”€ Models/
+â”‚ â”œâ”€â”€ Product.cs # Product entity
+â”‚ â””â”€â”€ User.cs # User entity with Role
+â”œâ”€â”€ Services/
+â”‚ â”œâ”€â”€ JwtService.cs # JWT token generation
+â”‚ â”œâ”€â”€ PasswordHasher.cs # BCrypt wrapper
+â”‚ â””â”€â”€ SimulatedAiRecommendationService.cs # AI heuristic scoring
+â”œâ”€â”€ EcommerceAPI.Tests/
+â”‚ â””â”€â”€ ProductControllerTests.cs # xUnit: 5 tests (all passing)
+â”œâ”€â”€ Program.cs # App config: JWT + Swagger + SeedData
+â””â”€â”€ appsettings.json # Connection strings & JWT config
 ```
 
 ---
@@ -144,8 +144,9 @@ Ecommerce-API/
 
 ## Author
 
-**Aditya Maisuriya** — AI Integration Engineer
+**Aditya Maisuriya** â€” AI Integration Engineer
 - Portfolio: [adityamaisuriya.pages.dev](https://adityamaisuriya.pages.dev)
 - LinkedIn: [linkedin.com/in/aditya-maisuriya-39a540202](https://linkedin.com/in/aditya-maisuriya-39a540202)
 - Email: adiiimaisuriya94@gmail.com
+
 
