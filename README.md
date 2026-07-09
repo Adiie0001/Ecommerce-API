@@ -1,4 +1,4 @@
-# Modern E-Commerce API
+# Production-Grade E-Commerce REST API
 
 [![.NET Build & Test](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-512BD4?style=flat-square&logo=.net&logoColor=white)
@@ -12,17 +12,27 @@ A production-quality **RESTful Web API / Web Service** built with **ASP.NET Core
 
 ---
 
+## 🏗️ Architecture & Design Decisions
+
+This API is structured around modern enterprise paradigms to ensure scalability, maintainability, and security:
+- **Separation of Concerns:** Controllers handle HTTP routing, while Services encapsulate business logic.
+- **Data Transfer Objects (DTOs):** Prevent over-posting attacks and decouple database schemas from API responses.
+- **Repository Pattern (via EF Core):** Abstracted data access with LINQ for optimized SQL generation.
+- **Stateless Authentication:** JWT Bearer tokens provide secure, horizontally scalable session management.
+
+---
+
 ## Features
 
-- [x] **JWT Authentication** â€” Register â†’ Login â†’ Bearer token
-- [x] **BCrypt Password Hashing** â€” Secure credential storage
-- [x] **Role-Based Access** â€” Protected product mutations (`[Authorize]`)
-- [x] **Full CRUD API** â€” Products with proper HTTP status codes
-- [x] **AI Product Recommendations** â€” Heuristic scoring based on simulated user behavior
-- [x] **Swagger UI** â€” Interactive API docs with JWT auth button
-- [x] **EF Core + SQL Server** â€” Code-first database with seed data
-- [x] **Auto Seed Data** â€” 2 demo users + 12 products on first run
-- [x] **CI/CD** â€” GitHub Actions build & test pipeline
+- [x] **JWT Authentication** - Register -> Login -> Bearer token
+- [x] **BCrypt Password Hashing** - Secure credential storage
+- [x] **Role-Based Access** - Protected product mutations (`[Authorize]`)
+- [x] **Full CRUD API** - Products with proper HTTP status codes
+- [x] **AI Product Recommendations** - Heuristic scoring based on simulated user behavior
+- [x] **Swagger UI** - Interactive API docs with JWT auth button
+- [x] **EF Core + SQL Server** - Code-first database with seed data
+- [x] **Auto Seed Data** - 2 demo users + 12 products on first run
+- [x] **CI/CD** - GitHub Actions build & test pipeline
 
 ---
 
