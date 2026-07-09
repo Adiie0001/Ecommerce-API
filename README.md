@@ -1,4 +1,4 @@
-﻿# Modern E-Commerce API
+# Modern E-Commerce API
 
 [![.NET Build & Test](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Adiie0001/Ecommerce-API/actions/workflows/dotnet.yml)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-512BD4?style=flat-square&logo=.net&logoColor=white)
@@ -6,7 +6,7 @@
 ![EF Core](https://img.shields.io/badge/EF_Core-8.0-512BD4?style=flat-square&logo=.net&logoColor=white)
 ![Swagger](https://img.shields.io/badge/Swagger-UI-85EA2D?style=flat-square&logo=swagger&logoColor=black)
 
-A production-quality **RESTful Web API** built with **ASP.NET Core 8**, featuring JWT authentication, BCrypt password hashing, Entity Framework Core, and full Swagger documentation.
+A production-quality **RESTful Web API / Web Service** built with **ASP.NET Core 8 (.Net Core)**, featuring JWT authentication, BCrypt password hashing, Entity Framework Core (EF Core), LINQ queries, OOP design patterns, and full Swagger/OpenAPI documentation.
 
 > **Security:** Product mutations (POST/PUT/DELETE) require JWT Bearer token. GET endpoints are public.
 
@@ -144,9 +144,7 @@ Ecommerce-API/
 
 ## Author
 
-**Aditya Maisuriya** â€” AI Integration Engineer
+**Aditya Maisuriya** - Full Stack Developer | ASP.NET Core | .NET | C# | AI Integration
 - Portfolio: [adityamaisuriya.pages.dev](https://adityamaisuriya.pages.dev)
 - LinkedIn: [linkedin.com/in/aditya-maisuriya-39a540202](https://linkedin.com/in/aditya-maisuriya-39a540202)
 - Email: adiiimaisuriya94@gmail.com
-
-
