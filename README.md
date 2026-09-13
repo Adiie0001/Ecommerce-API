@@ -12,7 +12,7 @@ A production-quality **RESTful Web API / Web Service** built with **ASP.NET Core
 
 ---
 
-## 🏗️ Architecture & Design Decisions
+## 🏗 Architecture & Design Decisions
 
 This API is structured around modern enterprise paradigms to ensure scalability, maintainability, and security:
 - **Separation of Concerns:** Controllers handle HTTP routing, while Services encapsulate business logic.
@@ -105,10 +105,10 @@ Open browser: **http://localhost:5xxx/swagger**
 ## Auth Flow
 
 ```
-1. POST /api/auth/register â†’ { username, email, passwordHash }
-2. POST /api/auth/login â†’ Returns: { token: "eyJ..." }
+1. POST /api/auth/register -> { username, email, passwordHash }
+2. POST /api/auth/login -> Returns: { token: "eyJ..." }
 3. Copy token
-4. In Swagger: Click Authorize â†’ Enter: Bearer eyJ...
+4. In Swagger: Click Authorize -> Enter: Bearer eyJ...
 5. Now POST/PUT/DELETE product endpoints work!
 ```
 
@@ -133,8 +133,8 @@ Ecommerce-API/
 â”‚ â””â”€â”€ SimulatedAiRecommendationService.cs # AI heuristic scoring
 â”œâ”€â”€ EcommerceAPI.Tests/
 â”‚ â””â”€â”€ ProductControllerTests.cs # xUnit: 5 tests (all passing)
-â”œâ”€â”€ Program.cs # App config: JWT + Swagger + SeedData
-â””â”€â”€ appsettings.json # Connection strings & JWT config
+├── Program.cs # App config: JWT + Swagger + SeedData
+└── appsettings.json # Connection strings & JWT config
 ```
 
 ---
