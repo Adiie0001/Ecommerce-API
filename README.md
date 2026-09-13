@@ -12,14 +12,6 @@ A production-quality **RESTful Web API / Web Service** built with **ASP.NET Core
 
 ---
 
-## 🚀 Project Evolution (2021 - Present)
-
-This project demonstrates my growth and commitment to maintaining and scaling codebases over **3.5+ years of enterprise experience**:
-- **2021 (The Genesis - BCA Capstone):** Developed a fully-featured, production-ready E-Commerce system from scratch, complete with comprehensive data models, secure transactions, and full CRUD capabilities, which secured top academic honors.
-- **2023 (Enterprise Modernization):** Upgraded the core architecture to **.NET 8**. Transitioned to stateless JWT authentication, implemented BCrypt security, and decoupled data access via Entity Framework Core.
-- **2025-2026 (The React & AI Shift):** Developed a dedicated **React Dashboard**, implemented AI-driven heuristic product recommendations, and established a fully automated CI/CD pipeline via GitHub Actions.
-
----
 ## 🏗️ Architecture & Design Decisions
 
 This API is structured around modern enterprise paradigms to ensure scalability, maintainability, and security:
@@ -74,7 +66,7 @@ dotnet run
 
 Open browser: **http://localhost:5xxx/swagger**
 
-> Database is auto-created and seeded on first run â€” no migrations needed!
+> Database is auto-created and seeded on first run — no migrations needed!
 
 ---
 
