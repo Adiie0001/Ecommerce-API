@@ -12,7 +12,15 @@ A production-quality **RESTful Web API / Web Service** built with **ASP.NET Core
 
 ---
 
-## 🏗 Architecture & Design Decisions
+## 🚀 Project Evolution (2021 - Present)
+
+This project demonstrates my growth and commitment to maintaining and scaling codebases over **3.5+ years of enterprise experience**:
+- **2021 (The Genesis - BCA Capstone):** Developed a fully-featured, production-ready E-Commerce system from scratch, complete with comprehensive data models, secure transactions, and full CRUD capabilities, which secured top academic honors.
+- **2023 (Enterprise Modernization):** Upgraded the core architecture to **.NET 8**. Transitioned to stateless JWT authentication, implemented BCrypt security, and decoupled data access via Entity Framework Core.
+- **2025-2026 (The React & AI Shift):** Developed a dedicated **React Dashboard**, implemented AI-driven heuristic product recommendations, and established a fully automated CI/CD pipeline via GitHub Actions.
+
+---
+## 🏗️ Architecture & Design Decisions
 
 This API is structured around modern enterprise paradigms to ensure scalability, maintainability, and security:
 - **Separation of Concerns:** Controllers handle HTTP routing, while Services encapsulate business logic.
@@ -105,10 +113,10 @@ Open browser: **http://localhost:5xxx/swagger**
 ## Auth Flow
 
 ```
-1. POST /api/auth/register -> { username, email, passwordHash }
-2. POST /api/auth/login -> Returns: { token: "eyJ..." }
+1. POST /api/auth/register → { username, email, passwordHash }
+2. POST /api/auth/login → Returns: { token: "eyJ..." }
 3. Copy token
-4. In Swagger: Click Authorize -> Enter: Bearer eyJ...
+4. In Swagger: Click Authorize → Enter: Bearer eyJ...
 5. Now POST/PUT/DELETE product endpoints work!
 ```
 
@@ -118,21 +126,21 @@ Open browser: **http://localhost:5xxx/swagger**
 
 ```
 Ecommerce-API/
-â”œâ”€â”€ Controllers/
-â”‚ â”œâ”€â”€ AuthController.cs # Register, Login, Protected route
-â”‚ â””â”€â”€ ProductController.cs # Full CRUD with [Authorize]
-â”œâ”€â”€ Data/
-â”‚ â”œâ”€â”€ AppDbContext.cs # EF Core DbContext
-â”‚ â””â”€â”€ SeedData.cs # Demo data: 2 users + 12 products
-â”œâ”€â”€ Models/
-â”‚ â”œâ”€â”€ Product.cs # Product entity
-â”‚ â””â”€â”€ User.cs # User entity with Role
-â”œâ”€â”€ Services/
-â”‚ â”œâ”€â”€ JwtService.cs # JWT token generation
-â”‚ â”œâ”€â”€ PasswordHasher.cs # BCrypt wrapper
-â”‚ â””â”€â”€ SimulatedAiRecommendationService.cs # AI heuristic scoring
-â”œâ”€â”€ EcommerceAPI.Tests/
-â”‚ â””â”€â”€ ProductControllerTests.cs # xUnit: 5 tests (all passing)
+├── Controllers/
+│ ├── AuthController.cs # Register, Login, Protected route
+│ └── ProductController.cs # Full CRUD with [Authorize]
+├── Data/
+│ ├── AppDbContext.cs # EF Core DbContext
+│ └── SeedData.cs # Demo data: 2 users + 12 products
+├── Models/
+│ ├── Product.cs # Product entity
+│ └── User.cs # User entity with Role
+├── Services/
+│ ├── JwtService.cs # JWT token generation
+│ ├── PasswordHasher.cs # BCrypt wrapper
+│ └── SimulatedAiRecommendationService.cs # AI heuristic scoring
+├── EcommerceAPI.Tests/
+│ └── ProductControllerTests.cs # xUnit: 5 tests (all passing)
 ├── Program.cs # App config: JWT + Swagger + SeedData
 └── appsettings.json # Connection strings & JWT config
 ```
