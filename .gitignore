@@ -1,9 +1,20 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+coverage/
+TestResults/
 
-# SQLite database files
+# Local databases and environment
 *.db
 *.db-shm
 *.db-wal
+.env
+appsettings.Local.json
 
-[Bb]in/
-[Oo]bj/
+# IDE
+.vs/
+*.user
 
+# Node (React admin app)
+node_modules/
+ecommerce-admin/dist/

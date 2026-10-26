@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+**/node_modules/
+.git/
+.github/
+.vscode/
+coverage/
+EcommerceAPI.Tests/
+ecommerce-admin/
+*.db
+*.db-shm
+*.db-wal
+.env

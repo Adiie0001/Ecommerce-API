@@ -5,36 +5,78 @@ on:
     branches: [ main ]
     paths-ignore:
       - '**/*.md'
-      - '**/*.txt'
   pull_request:
     branches: [ main ]
     paths-ignore:
       - '**/*.md'
-      - '**/*.txt'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  api:
+    name: API build, tests and coverage gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build (warnings are errors)
+        run: dotnet build --no-restore --configuration Release -warnaserror
+
+      - name: Test with coverage gate (line 94, branch 88, method 96)
+        run: >
+          dotnet test EcommerceAPI.Tests/EcommerceAPI.Tests.csproj --no-build --configuration Release
+          -p:CollectCoverage=true -p:CoverletOutputFormat=cobertura -p:CoverletOutput=../coverage/
+          "-p:Include=[EcommerceAPI]*" "-p:ExcludeByFile=**/Data/Migrations/**"
+          "-p:Threshold=94%2C88%2C96" "-p:ThresholdType=line%2Cbranch%2Cmethod" -p:ThresholdStat=total
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/coverage.cobertura.xml
+          if-no-files-found: ignore
+
+  admin:
+    name: Admin UI lint, tests and build
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
+    defaults:
+      run:
+        working-directory: ecommerce-admin
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ecommerce-admin/package-lock.json
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
 
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-
-    - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal
+  docker:
+    name: Docker image builds
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build --tag ecommerce-api:ci .

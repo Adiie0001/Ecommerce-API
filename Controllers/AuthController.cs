@@ -1,57 +1,88 @@
-using Microsoft.AspNetCore.Mvc;
-using EcommerceAPI.Models;
-using EcommerceAPI.Data;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
-using Microsoft.AspNetCore.Authorization;
+using Asp.Versioning;
+using EcommerceAPI.Contracts;
+using EcommerceAPI.Infrastructure;
 using EcommerceAPI.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
-namespace EcommerceAPI.Controllers
+namespace EcommerceAPI.Controllers;
+
+/// <summary>Account creation, sign-in and token lifecycle.</summary>
+[ApiController]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/auth")]
+public sealed class AuthController(AuthService auth) : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    /// <summary>Create a customer account.</summary>
+    [HttpPost("register")]
+    [AllowAnonymous]
+    [EnableRateLimiting(RateLimitPolicies.Auth)]
+    [ProducesResponseType<UserDto>(StatusCodes.Status201Created)]
+    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status409Conflict)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status429TooManyRequests)]
+    public async Task<ActionResult<UserDto>> Register([FromBody] RegisterRequest request, CancellationToken ct)
     {
-        private readonly AppDbContext _context;
-        private readonly IConfiguration _configuration;
-        private readonly JwtService _jwtService;
+        var user = await auth.RegisterAsync(request, ct);
+        return StatusCode(StatusCodes.Status201Created, user);
+    }
 
-        public AuthController(AppDbContext context, IConfiguration configuration, JwtService jwtService)
+    /// <summary>Exchange email and password for an access token and a refresh token.</summary>
+    [HttpPost("login")]
+    [AllowAnonymous]
+    [EnableRateLimiting(RateLimitPolicies.Auth)]
+    [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status429TooManyRequests)]
+    public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginRequest request, CancellationToken ct)
+    {
+        var result = await auth.LoginAsync(request, ct);
+        return result is null
+            ? Problem(statusCode: StatusCodes.Status401Unauthorized, title: "Sign-in failed", detail: "Invalid email or password.")
+            : Ok(result);
+    }
+
+    /// <summary>Rotate a refresh token. The presented token stops working; reusing it revokes the whole session.</summary>
+    [HttpPost("refresh")]
+    [AllowAnonymous]
+    [EnableRateLimiting(RateLimitPolicies.Auth)]
+    [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status429TooManyRequests)]
+    public async Task<ActionResult<AuthResponse>> Refresh([FromBody] RefreshRequest request, CancellationToken ct)
+    {
+        var result = await auth.RefreshAsync(request.RefreshToken, ct);
+        return result is null
+            ? Problem(statusCode: StatusCodes.Status401Unauthorized, title: "Refresh failed", detail: "The refresh token is invalid, expired or already used.")
+            : Ok(result);
+    }
+
+    /// <summary>End the session that the refresh token belongs to. Always succeeds.</summary>
+    [HttpPost("logout")]
+    [AllowAnonymous]
+    [EnableRateLimiting(RateLimitPolicies.Auth)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Logout([FromBody] RefreshRequest request, CancellationToken ct)
+    {
+        await auth.LogoutAsync(request.RefreshToken, ct);
+        return NoContent();
+    }
+
+    /// <summary>The signed-in user.</summary>
+    [HttpGet("me")]
+    [Authorize]
+    [ProducesResponseType<UserDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<UserDto>> Me(CancellationToken ct)
+    {
+        if (!int.TryParse(User.FindFirstValue("sub"), out var id))
         {
-            _context = context;
-            _configuration = configuration;
-            _jwtService = jwtService;
+            return Unauthorized();
         }
 
-        [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(User user)
-        {
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-            return Ok(new { message = "User registered successfully!" });
-        }
-
-        [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(User user)
-        {
-            var dbUser = _context.Users.FirstOrDefault(u => u.Username == user.Username);
-            if (dbUser == null || !BCrypt.Net.BCrypt.Verify(user.PasswordHash, dbUser.PasswordHash))
-            {
-                return Unauthorized(new { message = "Invalid username or password" });
-            }
-
-            var token = _jwtService.GenerateToken(dbUser.Username);
-            return Ok(new { token });
-        }
-
-        [Authorize]
-        [HttpGet("protected")]
-        public IActionResult ProtectedRoute()
-        {
-            return Ok(new { message = "You have accessed a protected route!" });
-        }
+        var user = await auth.GetUserAsync(id, ct);
+        return user is null ? Unauthorized() : Ok(user);
     }
 }

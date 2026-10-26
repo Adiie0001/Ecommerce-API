@@ -1,0 +1,27 @@
+services:
+  api:
+    build: .
+    image: ecommerce-api:local
+    ports:
+      # For trying it on one machine. Before exposing it further, put a TLS-terminating reverse proxy in front and publish
+      # nothing else: the image trusts the X-Forwarded-* headers it receives (rate limiting uses the client address).
+      - "127.0.0.1:8080:8080"
+    environment:
+      # Required: 32+ random characters. The API refuses to start without it. See .env.example.
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:?Set JWT_SIGNING_KEY in .env (see .env.example)}
+      # Optional: creates the first administrator once, if none exists. Both or neither.
+      Seed__AdminEmail: ${ADMIN_EMAIL:-}
+      Seed__AdminPassword: ${ADMIN_PASSWORD:-}
+      Cors__AllowedOrigins__0: ${ADMIN_ORIGIN:-http://localhost:5173}
+    volumes:
+      - api-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080 && printf \"GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n\" >&3 && grep -q \"200 OK\" <&3'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  api-data:
