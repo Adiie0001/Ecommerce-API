@@ -7,7 +7,7 @@ RUN dotnet restore EcommerceAPI.csproj
 COPY . .
 RUN dotnet publish EcommerceAPI.csproj -c Release -o /app/publish --no-restore -p:UseAppHost=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:11.0 AS runtime
 WORKDIR /app
 
 # TLS is expected to end at a reverse proxy, so trust its X-Forwarded-* headers (client IPs for rate limiting).
