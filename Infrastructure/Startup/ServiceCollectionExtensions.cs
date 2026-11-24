@@ -10,6 +10,7 @@ using EcommerceAPI.Infrastructure.Middleware;
 using EcommerceAPI.Infrastructure.Options;
 using EcommerceAPI.Services;
 using EcommerceAPI.Services.Recommendations;
+using EcommerceAPI.Services.Schema;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -155,7 +156,11 @@ public static class ServiceCollectionExtensions
                 .RequireRole(nameof(UserRole.Admin)));
     }
 
-    private static void AddCatalog(this IServiceCollection services) => services.AddScoped<ProductService>();
+    private static void AddCatalog(this IServiceCollection services)
+    {
+        services.AddScoped<ProductService>();
+        services.AddScoped<ISchemaDiscoveryService, DynamicSchemaDiscoveryService>();
+    }
 
     private static void AddRecommendations(this IServiceCollection services)
     {

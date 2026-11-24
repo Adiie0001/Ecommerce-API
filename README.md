@@ -94,6 +94,8 @@ documents (`application/problem+json`) carrying a `traceId` and the request's `c
 | POST | `/products` | Admin | 201 + `Location` |
 | PUT | `/products/{id}` | Admin | Requires the `version` from the last read; stale → 409 |
 | DELETE | `/products/{id}` | Admin | 204 / 404 |
+| GET | `/schema/discovery` | public, rate limited | Zero-model dynamic relational schema reflection across tables, columns, PKs, foreign keys, and indexes |
+| GET | `/schema/tables/{name}` | public, rate limited | Dynamic column types, default values, indexes and live row count for a target table |
 
 Money is a decimal with at most two places in JSON and integer cents in the database, so sorting, filtering and
 summing are exact.
